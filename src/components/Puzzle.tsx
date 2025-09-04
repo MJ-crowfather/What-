@@ -8,7 +8,7 @@ import type { Puzzle as PuzzleType } from "@/types";
 
 interface PuzzleProps {
   puzzle: PuzzleType;
-  onSolve: (skipped: boolean) => void;
+  onSolve: (skipped: boolean, guessCount: number) => void;
 }
 
 const PuzzleContent = ({ puzzle }: { puzzle: PuzzleType }) => {
@@ -40,16 +40,24 @@ const PuzzleContent = ({ puzzle }: { puzzle: PuzzleType }) => {
 export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
   const [guess, setGuess] = useState("");
   const [error, setError] = useState(false);
+  const [guessCount, setGuessCount] = useState(0);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const newGuessCount = guessCount + 1;
+    setGuessCount(newGuessCount);
+
     if (guess.trim().toLowerCase() === puzzle.answer.toLowerCase()) {
       setError(false);
-      onSolve(false);
+      onSolve(false, newGuessCount);
     } else {
       setError(true);
       setGuess("");
     }
+  };
+  
+  const handleSkip = () => {
+    onSolve(true, guessCount);
   };
 
   return (
@@ -81,7 +89,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
           <Button
             type="button"
             variant="secondary"
-            onClick={() => onSolve(true)}
+            onClick={handleSkip}
             className="w-full h-12 text-lg"
           >
             Skip
