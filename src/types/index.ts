@@ -3,7 +3,25 @@ export type Category =
   | "History"
   | "International Relations"
   | "Technical Advancements"
-  | "Literature";
+  | "Literature"
+  | "Psychology"
+  | "Philosophy"
+  | "Mathematics"
+  | "Anthropology"
+  | "Linguistics"
+  | "Economics"
+  | "Neuroscience"
+  | "Art History"
+  | "Sociology"
+  | "Physics"
+  | "Biology"
+  | "Geography"
+  | "Computer Science"
+  | "Chemistry"
+  | "Astronomy"
+  | "Music Theory"
+  | "Architecture"
+  | "Ecology";
 
 export type Puzzle = {
   answer: string;
