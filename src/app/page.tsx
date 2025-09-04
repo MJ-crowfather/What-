@@ -6,9 +6,12 @@ import { Puzzle } from "@/components/Puzzle";
 import { ConceptCard } from "@/components/ConceptCard";
 import { PuzzleBreakdown } from "@/components/PuzzleBreakdown";
 import { Loader2 } from "lucide-react";
+import { concepts } from "@/lib/concepts";
+import type { DailyConcept } from "@/types";
 
 export default function Home() {
   const dailyConcept = useDailyConcept();
+  const [currentConcept, setCurrentConcept] = useState<DailyConcept | null>(null);
   const [isSolved, setIsSolved] = useState(false);
   const [skipped, setSkipped] = useState(false);
   const [guessCount, setGuessCount] = useState(0);
@@ -16,9 +19,16 @@ export default function Home() {
   const [animationState, setAnimationState] = useState<"idle" | "in" | "out">(
     "idle",
   );
+  const [isDaily, setIsDaily] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (dailyConcept) {
+      setCurrentConcept(dailyConcept);
+    }
+  }, [dailyConcept]);
+  
+  useEffect(() => {
+    if (typeof window !== "undefined" && isDaily) {
       const solvedStatus = localStorage.getItem("conceptQuest-solvedStatus");
 
       if (solvedStatus) {
@@ -32,7 +42,7 @@ export default function Home() {
         }
       }
     }
-  }, []);
+  }, [isDaily]);
 
   const handleSolve = (wasSkipped: boolean, guesses: number) => {
     if (animationState === "idle") {
@@ -40,6 +50,21 @@ export default function Home() {
       setGuessCount(guesses);
       setAnimationState("in");
     }
+  };
+  
+  const handleLearnNew = () => {
+    let newConcept;
+    do {
+      const randomIndex = Math.floor(Math.random() * concepts.length);
+      newConcept = concepts[randomIndex];
+    } while (newConcept.concept.title === currentConcept?.concept.title);
+
+    setCurrentConcept(newConcept);
+    setIsSolved(false);
+    setSkipped(false);
+    setGuessCount(0);
+    setShowBreakdown(false);
+    setIsDaily(false);
   };
 
   const handleGoBack = () => {
@@ -53,9 +78,11 @@ export default function Home() {
   const handleAnimationEnd = () => {
     if (animationState === "in") {
       setIsSolved(true);
-      localStorage.setItem("conceptQuest-solvedStatus", skipped ? "skipped" : "solved");
-      if (!skipped) {
-        localStorage.setItem("conceptQuest-guesses", guessCount.toString());
+      if (isDaily) {
+        localStorage.setItem("conceptQuest-solvedStatus", skipped ? "skipped" : "solved");
+        if (!skipped) {
+          localStorage.setItem("conceptQuest-guesses", guessCount.toString());
+        }
       }
       setAnimationState("out");
     } else if (animationState === "out") {
@@ -63,7 +90,7 @@ export default function Home() {
     }
   };
 
-  if (!dailyConcept) {
+  if (!currentConcept) {
     return (
       <main className="flex min-h-screen items-center justify-center p-4 bg-background">
         <div className="flex flex-col items-center gap-4 text-primary">
@@ -76,7 +103,7 @@ export default function Home() {
 
   return (
     <main
-      data-category={dailyConcept.category.toLowerCase().replace(/ /g, "-")}
+      data-category={currentConcept.category.toLowerCase().replace(/ /g, "-")}
       className="flex min-h-screen flex-col items-center justify-center p-4 transition-colors duration-500 relative overflow-hidden"
     >
       <div
@@ -92,16 +119,17 @@ export default function Home() {
         {isSolved ? (
           showBreakdown ? (
             <PuzzleBreakdown
-              puzzle={dailyConcept.puzzle}
+              puzzle={currentConcept.puzzle}
               onReturn={handleReturnToConcept}
             />
           ) : (
             <ConceptCard
-              concept={dailyConcept.concept}
-              category={dailyConcept.category}
+              concept={currentConcept.concept}
+              category={currentConcept.category}
               isSkipped={skipped}
               guessCount={guessCount}
               onGoBack={handleGoBack}
+              onLearnNew={handleLearnNew}
             />
           )
         ) : (
@@ -109,7 +137,7 @@ export default function Home() {
             <h1 className="font-headline text-8xl md:text-9xl font-bold text-primary mb-8 text-center">
               What?
             </h1>
-            <Puzzle puzzle={dailyConcept.puzzle} onSolve={handleSolve} />
+            <Puzzle puzzle={currentConcept.puzzle} onSolve={handleSolve} />
           </div>
         )}
       </div>

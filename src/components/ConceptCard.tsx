@@ -1,7 +1,13 @@
 "use client";
 
 import type { Concept, Category } from "@/types";
-import { ArrowLeft, ArrowUpRight, Lightbulb, Share2 } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  BookMarked,
+  Lightbulb,
+  Share2,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -14,6 +20,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface ConceptCardProps {
   concept: Concept;
@@ -21,13 +35,23 @@ interface ConceptCardProps {
   isSkipped?: boolean;
   guessCount: number;
   onGoBack?: () => void;
+  onLearnNew: () => void;
 }
 
-export function ConceptCard({ concept, category, isSkipped = false, guessCount, onGoBack }: ConceptCardProps) {
+export function ConceptCard({
+  concept,
+  category,
+  isSkipped = false,
+  guessCount,
+  onGoBack,
+  onLearnNew,
+}: ConceptCardProps) {
   const { toast } = useToast();
 
   const handleShare = () => {
-    const shareText = `I solved today's What? in ${guessCount} guess${guessCount > 1 ? 'es' : ''}! WHAT'S your score?`;
+    const shareText = `I solved today's What? in ${guessCount} guess${
+      guessCount > 1 ? "es" : ""
+    }! WHAT'S your score?`;
     navigator.clipboard.writeText(shareText);
     toast({
       title: "Copied to clipboard!",
@@ -54,7 +78,7 @@ export function ConceptCard({ concept, category, isSkipped = false, guessCount, 
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6 md:p-8 pt-0 space-y-6 text-base">
-        <Separator className="bg-primary"/>
+        <Separator className="bg-primary" />
         <p className="text-foreground/90 leading-relaxed">
           {concept.description}
         </p>
@@ -74,7 +98,11 @@ export function ConceptCard({ concept, category, isSkipped = false, guessCount, 
         </div>
       </CardContent>
       <CardFooter className="p-6 md:p-8 pt-0 flex flex-wrap gap-4 justify-between items-center">
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
+          <Button onClick={onLearnNew} variant="default">
+            Learn Something New!
+          </Button>
+
           {isSkipped && (
             <Button onClick={onGoBack} variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -82,22 +110,50 @@ export function ConceptCard({ concept, category, isSkipped = false, guessCount, 
             </Button>
           )}
           {!isSkipped && (
-            <Button onClick={handleShare} variant="secondary" className="bg-foreground text-background hover:bg-foreground/90">
+            <Button
+              onClick={handleShare}
+              variant="secondary"
+              className="bg-foreground text-background hover:bg-foreground/90"
+            >
               <Share2 className="w-4 h-4 mr-2" />
               Share Score
             </Button>
           )}
         </div>
-        {concept.learn_more && (
-          <Button asChild variant="link" className="p-0 h-auto text-base">
-            <a
-              href={concept.learn_more}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn More <ArrowUpRight className="w-4 h-4 ml-1" />
-            </a>
-          </Button>
+        {concept.learn_more && concept.learn_more.length > 0 && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="link" className="p-0 h-auto text-base">
+                Learn More <BookMarked className="w-4 h-4 ml-1" />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] bg-card border-primary">
+              <DialogHeader>
+                <DialogTitle className="font-headline text-2xl text-primary">
+                  Learn More about {concept.title}
+                </DialogTitle>
+                <DialogDescription>
+                  Here are some top resources to dive deeper.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex flex-col gap-4 py-4">
+                {concept.learn_more.map((source, index) => (
+                  <a
+                    key={index}
+                    href={source.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between p-3 rounded-md bg-secondary hover:bg-accent transition-colors"
+                  >
+                    <span className="font-medium text-secondary-foreground group-hover:text-accent-foreground">
+                      {source.title}
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 ml-2 text-muted-foreground group-hover:text-accent-foreground transition-transform group-hover:translate-x-1" />
+                  </a>
+                ))}
+              </div>
+            </DialogContent>
+          </Dialog>
         )}
       </CardFooter>
     </Card>

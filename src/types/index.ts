@@ -28,7 +28,7 @@ export interface Concept {
   tldr: string;
   description: string;
   why_cool: string[];
-  learn_more?: string;
+  learn_more?: { title: string; url: string }[];
 }
 
 export interface DailyConcept {
