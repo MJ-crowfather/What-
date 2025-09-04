@@ -171,4 +171,174 @@ export const concepts: DailyConcept[] = [
       ],
     },
   },
+  {
+    category: "Science",
+    puzzle: {
+      type: "factoid",
+      clue: "This principle suggests that when faced with competing explanations, the simplest one—the one with the fewest assumptions—is usually the right one. What is this philosophical razor called?",
+      answer: "Occam's Razor",
+      explanation: "The clue directly describes the principle of Occam's Razor, which favors simplicity in explanations. The 'razor' metaphor refers to 'shaving away' unnecessary assumptions.",
+    },
+    concept: {
+      title: "Occam's Razor",
+      tldr: "A problem-solving principle that states 'the simplest explanation is usually the best one.'",
+      description:
+        "Occam's Razor (or Ockham's Razor) is a philosophical and scientific principle attributed to the 14th-century logician William of Ockham. The principle, often summarized as 'entities should not be multiplied beyond necessity,' advocates for simplicity. When presented with competing hypotheses or theories that make the same predictions, one should select the solution with the fewest assumptions. It is not an irrefutable law of logic or a scientific result, but rather a heuristic or a rule of thumb that guides scientists and thinkers in developing theoretical models. It's about paring down explanations to their most essential elements, avoiding unnecessary complexity.",
+      why_cool: [
+        "It's a powerful tool for clear thinking in any field. From diagnosing a patient to debugging code, Occam's Razor encourages you to check the most straightforward and likely causes first before diving into more complex and improbable scenarios. It's a practical principle for everyday problem-solving.",
+        "It played a crucial role in major scientific revolutions. For example, Copernicus's sun-centered model of the solar system, while complex in its own right, was ultimately a simpler explanation for the observed movements of planets than the convoluted Ptolemaic system, which required numerous 'epicycles' to work.",
+        "It serves as a vital bullshit detector. In an age of misinformation and elaborate conspiracy theories, Occam's Razor provides a valuable mental shortcut: is it more likely that a complex, multi-layered conspiracy involving thousands of people is true, or is there a simpler, more direct explanation for the event in question?",
+      ],
+      learn_more: [
+        {
+          title: "Wikipedia - Occam's Razor",
+          url: "https://en.wikipedia.org/wiki/Occam%27s_razor",
+        },
+        {
+          title: "Effectiviology - Occam's Razor",
+          url: "https://effectiviology.com/occams-razor/",
+        },
+        {
+          title: "Khan Academy (Video)",
+          url: "https://www.youtube.com/watch?v=cZp-p4BCQ2E",
+        },
+      ],
+    },
+  },
+  {
+    category: "History",
+    puzzle: {
+      type: "emoji",
+      clue: "🇨🇳🐛➡️💵➡️🇮🇹",
+      answer: "The Silk Road",
+      explanation: "China flag, a silkworm, leading to money, and finally leading to an Italy flag. This illustrates the trade of silk from China to the West, a key feature of the ancient trade network.",
+    },
+    concept: {
+      title: "The Silk Road",
+      tldr: "An ancient network of trade routes that connected the East and West for centuries.",
+      description:
+        "The Silk Road was not a single road, but a vast network of trade routes that were central to cultural interaction through regions of Asia, connecting the West and East from China and India to the Mediterranean Sea. The trade on the Silk Road was a significant factor in the development of the great civilizations of China, India, Persia, Europe, and Arabia. Though silk was certainly the major trade item exported from China, many other goods and ideas were exchanged, including spices, precious metals, art, religions (like Buddhism), philosophies, and technologies. The routes were instrumental in the spread of knowledge and innovation across continents for more than 1,500 years.",
+      why_cool: [
+        "It was the world's first great example of globalization. For centuries, it was the primary channel for goods, ideas, art, and even diseases to travel between Europe and Asia, fundamentally shaping cultures and economies across continents long before the internet or air travel.",
+        "It wasn't just about trading silk for gold. This network was a conduit for culture. Buddhism traveled from India to China along these routes, papermaking technology moved from China to the West, and artistic styles blended to create unique new forms, making it a massive engine of cultural diffusion.",
+        "It highlights incredible human resilience and the drive for connection. Imagine merchants traveling for thousands of miles across treacherous deserts, mountains, and plains on camels, facing bandits and harsh weather, all to exchange goods and knowledge. It's a testament to the ancient world's ambition and interconnectedness.",
+      ],
+      learn_more: [
+        {
+          title: "Wikipedia - Silk Road",
+          url: "https://en.wikipedia.org/wiki/Silk_Road",
+        },
+        {
+          title: "History.com - Silk Road",
+          url: "https://www.history.com/topics/ancient-middle-east/silk-road",
+        },
+        {
+          title: "UNESCO - Silk Road",
+          url: "https://en.unesco.org/silkroad/about-silk-road",
+        },
+      ],
+    },
+  },
+  {
+    category: "International Relations",
+    puzzle: {
+      type: "word-scramble",
+      clue: "NOCTINIFORAM SAIB",
+      answer: "Confirmation Bias",
+      explanation: "The letters are a scramble of 'Confirmation Bias,' a key concept in psychology and decision-making.",
+    },
+    concept: {
+      title: "Confirmation Bias",
+      tldr: "The tendency to search for, interpret, and recall information that confirms one's pre-existing beliefs.",
+      description:
+        "Confirmation Bias is a type of cognitive bias where individuals have a tendency to search for, interpret, favor, and recall information in a way that confirms or supports their prior beliefs or values. People display this bias when they gather or remember information selectively, or when they interpret it in a biased way. The effect is stronger for emotionally charged issues and for deeply entrenched beliefs. For example, a person who believes a certain political party is corrupt will actively seek out news stories that support this view while ignoring or dismissing stories that portray the party in a positive light. This bias is a fundamental aspect of human psychology and can lead to poor decision-making in all aspects of life, from personal relationships to international policy.",
+      why_cool: [
+        "It explains so much about the modern world, especially the polarization of online discourse. Social media algorithms often feed us content that aligns with our existing views, creating 'echo chambers' and 'filter bubbles' that amplify our confirmation bias and make it harder to understand opposing viewpoints.",
+        "Recognizing this bias in yourself is a superpower. Actively seeking out disconfirming evidence and challenging your own assumptions is a key skill for critical thinking, making you a better scientist, investor, leader, and citizen. It's the intellectual equivalent of 'checking your work.'",
+        "It has been a factor in major historical blunders. From military intelligence failures to financial market bubbles, confirmation bias can lead to collective groupthink where dissenting opinions are ignored, often with disastrous consequences. Studying it is crucial for improving institutional decision-making.",
+      ],
+      learn_more: [
+        {
+          title: "Wikipedia - Confirmation Bias",
+          url: "https://en.wikipedia.org/wiki/Confirmation_bias",
+        },
+        {
+          title: "The Decision Lab - Confirmation Bias",
+          url: "https://thedecisionlab.com/biases/confirmation-bias",
+        },
+        {
+          title: "Simply Psychology - Confirmation Bias",
+          url: "https://www.simplypsychology.org/confirmation-bias.html",
+        },
+      ],
+    },
+  },
+  {
+    category: "Technical Advancements",
+    puzzle: {
+      type: "emoji",
+      clue: "🔗📦🔗📦🔗",
+      answer: "Blockchain",
+      explanation: "Chains linking boxes together. This is a direct visual representation of a blockchain, where 'blocks' of data are cryptographically 'chained' together in a sequence.",
+    },
+    concept: {
+      title: "Blockchain",
+      tldr: "A distributed, immutable digital ledger that records transactions in a secure and transparent way.",
+      description:
+        "A blockchain is a decentralized and distributed digital ledger that is used to record transactions across many computers so that any involved record cannot be altered retroactively, without the alteration of all subsequent blocks. This ensures the integrity and security of the data. Each 'block' in the chain contains a number of transactions, and every time a new transaction occurs on the blockchain, a record of that transaction is added to every participant’s ledger. The decentralized database managed by multiple participants is known as Distributed Ledger Technology (DLT). Blockchain is the technology that underpins cryptocurrencies like Bitcoin, but its applications extend far beyond finance to areas like supply chain management, voting systems, and digital identity.",
+      why_cool: [
+        "It creates trust without a middleman. By using cryptography and a distributed network, blockchain allows people to transact directly and securely with each other without needing a bank, government, or other central authority to verify the transaction. This has the potential to be revolutionary.",
+        "It's like a digital 'stone tablet.' Once a transaction is recorded on the blockchain, it is permanent and cannot be altered or deleted. This immutability makes it incredibly useful for things that require a tamper-proof record, like property deeds, medical records, or tracking the origin of goods.",
+        "While it's famous for cryptocurrencies like Bitcoin, the underlying technology has far-reaching potential. It could be used to create more secure and transparent voting systems, to manage complex supply chains, to verify digital identity, or to enable artists to get royalties for their work automatically. We're only just beginning to explore its possibilities.",
+      ],
+      learn_more: [
+        {
+          title: "Wikipedia - Blockchain",
+          url: "https://en.wikipedia.org/wiki/Blockchain",
+        },
+        {
+          title: "Investopedia - Blockchain Explained",
+          url: "https://www.investopedia.com/terms/b/blockchain.asp",
+        },
+        {
+          title: "MIT Explains: Blockchain (Video)",
+          url: "https://www.youtube.com/watch?v=19j_7_JsttI",
+        },
+      ],
+    },
+  },
+  {
+    category: "Literature",
+    puzzle: {
+      type: "factoid",
+      clue: "This is the term for when a character in a story, play, or film acknowledges that they are in a work of fiction, often by speaking directly to the audience. What is it called?",
+      answer: "Breaking the Fourth Wall",
+      explanation: "The clue is a direct definition of the literary and dramatic device known as 'breaking the fourth wall.'",
+    },
+    concept: {
+      title: "The Fourth Wall",
+      tldr: "The imaginary 'wall' between the audience and the story, which is 'broken' when a character acknowledges the audience.",
+      description:
+        "The 'fourth wall' is a conceptual barrier between the performers in a work of fiction and the audience. The term originates from the world of theater, where a traditional stage has three physical walls (back and two sides). The fourth, invisible wall is the one through which the audience views the action of the play. 'Breaking the fourth wall' is any instance in which this barrier is breached. This can happen when a character speaks directly to the audience (an 'aside' or soliloquy), acknowledges their fictional nature, or references the real world or the medium they are in. It's a device used to create a more intimate connection with the audience, for comedic effect, or to draw attention to the artifice of the story itself.",
+      why_cool: [
+        "It's a secret handshake between the story and the audience. When a character like Deadpool or Fleabag looks at the camera and talks to you, it shatters the illusion of reality in a thrilling way. It makes you an active participant, a co-conspirator in the story, rather than just a passive observer.",
+        "It's a powerful comedic tool. The unexpected disruption of the narrative convention can be hilarious, creating a sense of irony and self-awareness. Shows like 'The Office' or 'Fleabag' use it to land jokes and expose the inner thoughts of characters in a way that traditional storytelling can't.",
+        "It can be used for profound dramatic effect. In a more serious context, breaking the fourth wall can force the audience to confront uncomfortable truths or question the nature of the story they're being told. It can implicate the viewer in the on-screen action, making the drama feel more immediate and personal.",
+      ],
+      learn_more: [
+        {
+          title: "Wikipedia - Fourth Wall",
+          url: "https://en.wikipedia.org/wiki/Fourth_wall",
+        },
+        {
+          title: "StudioBinder - Breaking the Fourth Wall",
+          url: "https://www.studiobinder.com/blog/what-is-breaking-the-fourth-wall-definition/",
+        },
+        {
+          title: "Lessons from the Screenplay (Video)",
+          url: "https://www.youtube.com/watch?v=F--Ute45s-I",
+        },
+      ],
+    },
+  },
 ];
