@@ -49,9 +49,9 @@ export function ConceptCard({
   const { toast } = useToast();
 
   const handleShare = () => {
-    const scoreLine = `Solved in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`;
-    const emojis = ['💡', '🧠', '✨', '🧩', '🎯', '🤔'];
-    const shareText = `Today's What? ${scoreLine}\n${emojis.slice(0, guessCount).join('')}\n\nThink you can do better?`;
+    const scoreLine = `Solved in ${guessCount} guess${guessCount === 1 ? "" : "es"}!`;
+    const emojis = ["💡", "🧠", "✨", "🧩", "🎯", "🤔"];
+    const shareText = `I solved today's What? in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!\n${emojis.slice(0, guessCount).join('')}\n\nThink you can do better?`;
 
     navigator.clipboard.writeText(shareText);
     toast({
