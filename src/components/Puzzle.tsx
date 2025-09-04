@@ -44,7 +44,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
           }}
           placeholder="Your answer..."
           aria-label="Your answer for the riddle"
-          className={`text-center text-lg h-14 border-2 ${
+          className={`font-body text-center text-lg h-14 border-2 text-foreground ${
             error
               ? "border-destructive ring-2 ring-destructive/50"
               : "focus-visible:ring-primary"
