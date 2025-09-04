@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 import { useDailyConcept } from "@/hooks/useDailyConcept";
 import { Puzzle } from "@/components/Puzzle";
 import { ConceptCard } from "@/components/ConceptCard";
+import { PuzzleBreakdown } from "@/components/PuzzleBreakdown";
 import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const dailyConcept = useDailyConcept();
   const [isSolved, setIsSolved] = useState(false);
+  const [skipped, setSkipped] = useState(false);
+  const [showBreakdown, setShowBreakdown] = useState(false);
   const [animationState, setAnimationState] = useState<"idle" | "in" | "out">(
     "idle",
   );
@@ -18,18 +22,30 @@ export default function Home() {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const todayStr = today.toISOString().split("T")[0];
-      const solvedDate = localStorage.getItem("conceptQuest-solvedDate");
+      const solvedStatus = localStorage.getItem("conceptQuest-solvedStatus");
 
-      if (solvedDate === todayStr) {
+      if (solvedStatus) {
         setIsSolved(true);
+        if (solvedStatus === "skipped") {
+          setSkipped(true);
+        }
       }
     }
   }, []);
 
-  const handleSolve = () => {
+  const handleSolve = (wasSkipped: boolean) => {
     if (animationState === "idle") {
+      setSkipped(wasSkipped);
       setAnimationState("in");
     }
+  };
+
+  const handleGoBack = () => {
+    setShowBreakdown(true);
+  };
+
+  const handleReturnToConcept = () => {
+    setShowBreakdown(false);
   };
 
   const handleAnimationEnd = () => {
@@ -38,7 +54,7 @@ export default function Home() {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const todayStr = today.toISOString().split("T")[0];
-      localStorage.setItem("conceptQuest-solvedDate", todayStr);
+      localStorage.setItem("conceptQuest-solvedStatus", skipped ? "skipped" : "solved");
       setAnimationState("out");
     } else if (animationState === "out") {
       setAnimationState("idle");
@@ -72,10 +88,19 @@ export default function Home() {
 
       <div className="w-full max-w-4xl mx-auto">
         {isSolved ? (
-          <ConceptCard
-            concept={dailyConcept.concept}
-            category={dailyConcept.category}
-          />
+          showBreakdown ? (
+            <PuzzleBreakdown
+              puzzle={dailyConcept.puzzle}
+              onReturn={handleReturnToConcept}
+            />
+          ) : (
+            <ConceptCard
+              concept={dailyConcept.concept}
+              category={dailyConcept.category}
+              showGoBackButton={skipped}
+              onGoBack={handleGoBack}
+            />
+          )
         ) : (
           <div className="flex flex-col items-center">
             <h1 className="font-headline text-8xl md:text-9xl font-bold text-primary mb-8 text-center">

@@ -1,7 +1,7 @@
 "use client";
 
 import type { Concept, Category } from "@/types";
-import { ArrowUpRight, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Lightbulb } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,9 +17,11 @@ import { Separator } from "@/components/ui/separator";
 interface ConceptCardProps {
   concept: Concept;
   category: Category;
+  showGoBackButton?: boolean;
+  onGoBack?: () => void;
 }
 
-export function ConceptCard({ concept, category }: ConceptCardProps) {
+export function ConceptCard({ concept, category, showGoBackButton = false, onGoBack }: ConceptCardProps) {
   return (
     <Card className="w-full max-w-2xl mx-auto border-2 bg-card/80 backdrop-blur-sm animate-in fade-in duration-700">
       <CardHeader className="p-6 md:p-8">
@@ -55,9 +57,15 @@ export function ConceptCard({ concept, category }: ConceptCardProps) {
           </ul>
         </div>
       </CardContent>
-      {concept.learn_more && (
-        <CardFooter className="p-6 md:p-8 pt-0">
-          <Button asChild variant="link" className="p-0 h-auto text-base">
+      <CardFooter className="p-6 md:p-8 pt-0 flex justify-between">
+         {showGoBackButton && (
+          <Button onClick={onGoBack} variant="outline">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            See Puzzle Breakdown
+          </Button>
+        )}
+        {concept.learn_more && (
+          <Button asChild variant="link" className={`p-0 h-auto text-base ${showGoBackButton ? '' : 'ml-auto'}`}>
             <a
               href={concept.learn_more}
               target="_blank"
@@ -66,8 +74,8 @@ export function ConceptCard({ concept, category }: ConceptCardProps) {
               Learn More <ArrowUpRight className="w-4 h-4 ml-1" />
             </a>
           </Button>
-        </CardFooter>
-      )}
+        )}
+      </CardFooter>
     </Card>
   );
 }

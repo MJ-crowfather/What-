@@ -5,11 +5,23 @@ export type Category =
   | "Technical Advancements"
   | "Literature";
 
-export interface Puzzle {
-  type: "emoji";
-  clue: string;
+export type Puzzle = {
   answer: string;
-}
+  explanation: string;
+} & (
+  | {
+      type: "emoji";
+      clue: string;
+    }
+  | {
+      type: "word-scramble";
+      clue: string;
+    }
+  | {
+      type: "factoid";
+      clue: string;
+    }
+);
 
 export interface Concept {
   title: string;
