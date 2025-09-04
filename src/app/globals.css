@@ -48,7 +48,14 @@
     --ring: 0 0% 83.1%;
   }
 
-  [data-category="science"] {
+  [data-category="science"],
+  [data-category="physics"],
+  [data-category="chemistry"],
+  [data-category="biology"],
+  [data-category="neuroscience"],
+  [data-category="astronomy"],
+  [data-category="geography"],
+  [data-category="ecology"] {
     --background: 136 50% 94%;
     --foreground: 124 30% 20%;
     --primary: 124 38% 57%;
@@ -78,7 +85,11 @@
     --card-foreground: 1 50% 25%;
   }
 
-  [data-category="international-relations"] {
+  [data-category="international-relations"],
+  [data-category="psychology"],
+  [data-category="anthropology"],
+  [data-category="sociology"],
+  [data-category="economics"] {
     --background: 288 40% 95%;
     --foreground: 288 30% 25%;
     --primary: 288 51% 51%;
@@ -93,7 +104,9 @@
     --card-foreground: 288 30% 25%;
   }
 
-  [data-category="technical-advancements"] {
+  [data-category="technical-advancements"],
+  [data-category="computer-science"],
+  [data-category="mathematics"] {
     --background: 208 90% 95%;
     --foreground: 207 50% 25%;
     --primary: 207 90% 61%;
@@ -108,7 +121,12 @@
     --card-foreground: 207 50% 25%;
   }
 
-  [data-category="literature"] {
+  [data-category="literature"],
+  [data-category="philosophy"],
+  [data-category="art-history"],
+  [data-category="music-theory"],
+  [data-category="architecture"],
+  [data-category="linguistics"] {
     --background: 20 20% 93%;
     --foreground: 19 25% 25%;
     --primary: 19 18% 47%;
