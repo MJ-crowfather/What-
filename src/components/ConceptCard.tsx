@@ -34,8 +34,10 @@ interface ConceptCardProps {
   category: Category;
   isSkipped?: boolean;
   guessCount: number;
+  isDaily: boolean;
   onGoBack?: () => void;
   onLearnNew: () => void;
+  onDailyConcept: () => void;
 }
 
 export function ConceptCard({
@@ -45,13 +47,14 @@ export function ConceptCard({
   guessCount,
   onGoBack,
   onLearnNew,
+  onDailyConcept,
+  isDaily,
 }: ConceptCardProps) {
   const { toast } = useToast();
 
   const handleShare = () => {
-    const scoreLine = `Solved in ${guessCount} guess${guessCount === 1 ? "" : "es"}!`;
-    const emojis = ["💡", "🧠", "✨", "🧩", "🎯", "🤔"];
-    const shareText = `I solved today's What? in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!\n${emojis.slice(0, guessCount).join('')}\n\nThink you can do better?`;
+    const emojis = ["💡", "🧠", "✨", "🧩", "🎯", "🤔"].slice(0, guessCount).join('');
+    const shareText = `I solved today's What? in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!\n${emojis}\n\nThink you can do better?`;
 
     navigator.clipboard.writeText(shareText);
     toast({
@@ -64,9 +67,22 @@ export function ConceptCard({
     <Card className="w-full max-w-2xl mx-auto border-2 bg-card/80 backdrop-blur-sm animate-in fade-in duration-700">
       <CardHeader className="p-6 md:p-8">
         <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-4">
-          <CardTitle className="font-headline text-4xl md:text-5xl !leading-tight text-foreground">
-            {concept.title}
-          </CardTitle>
+          <div className="flex-1">
+            <div className="flex items-center gap-4">
+               <CardTitle className="font-headline text-4xl md:text-5xl !leading-tight text-foreground">
+                {concept.title}
+              </CardTitle>
+            </div>
+             {!isDaily && (
+              <Button
+                onClick={onDailyConcept}
+                variant="link"
+                className="p-0 h-auto text-base mt-2"
+              >
+                Back to What? of the day
+              </Button>
+            )}
+          </div>
           <Badge
             variant="default"
             className="bg-primary text-primary-foreground text-sm self-start sm:self-auto"
@@ -110,7 +126,7 @@ export function ConceptCard({
               See Puzzle Breakdown
             </Button>
           )}
-          {!isSkipped && (
+          {!isSkipped && isDaily && (
             <Button
               onClick={handleShare}
               variant="secondary"
