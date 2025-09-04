@@ -9,6 +9,7 @@ import type { Puzzle as PuzzleType } from "@/types";
 interface PuzzleProps {
   puzzle: PuzzleType;
   onSolve: (skipped: boolean, guessCount: number) => void;
+  isDaily: boolean;
 }
 
 const PuzzleContent = ({ puzzle }: { puzzle: PuzzleType }) => {
@@ -37,7 +38,7 @@ const PuzzleContent = ({ puzzle }: { puzzle: PuzzleType }) => {
 };
 
 
-export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
+export function Puzzle({ puzzle, onSolve, isDaily }: PuzzleProps) {
   const [guess, setGuess] = useState("");
   const [error, setError] = useState<string | false>(false);
   const [guessCount, setGuessCount] = useState(0);
@@ -71,7 +72,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
     <div className="w-full max-w-md mx-auto flex flex-col items-center justify-center text-center p-4 animate-in fade-in duration-700">
       <PuzzleContent puzzle={puzzle} />
       <p className="mt-4 text-muted-foreground">
-        Solve the riddle to reveal today's concept. You have {6 - guessCount} guesses remaining.
+        Solve the riddle to reveal {isDaily ? "today's" : "another"} concept. You have {6 - guessCount} guesses remaining.
       </p>
       <form onSubmit={handleSubmit} className="w-full mt-8 space-y-4">
         <Input

@@ -164,7 +164,11 @@ export default function Home() {
             <h1 className="font-headline text-8xl md:text-9xl font-bold text-primary mb-8 text-center">
               What?
             </h1>
-            <Puzzle puzzle={currentConcept.puzzle} onSolve={handleSolve} />
+            <Puzzle
+              puzzle={currentConcept.puzzle}
+              onSolve={handleSolve}
+              isDaily={isDaily}
+            />
           </div>
         )}
       </div>
