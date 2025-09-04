@@ -49,12 +49,12 @@ export function ConceptCard({ concept, category, isSkipped = false, guessCount, 
             {category}
           </Badge>
         </div>
-        <CardDescription className="text-lg md:text-xl italic pt-2">
+        <CardDescription className="text-lg md:text-xl italic pt-2 text-primary">
           "{concept.tldr}"
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6 md:p-8 pt-0 space-y-6 text-base">
-        <Separator />
+        <Separator className="bg-primary"/>
         <p className="text-foreground/90 leading-relaxed">
           {concept.description}
         </p>
@@ -82,7 +82,7 @@ export function ConceptCard({ concept, category, isSkipped = false, guessCount, 
             </Button>
           )}
           {!isSkipped && (
-            <Button onClick={handleShare} variant="secondary">
+            <Button onClick={handleShare} variant="secondary" className="bg-foreground text-background hover:bg-foreground/90">
               <Share2 className="w-4 h-4 mr-2" />
               Share Score
             </Button>

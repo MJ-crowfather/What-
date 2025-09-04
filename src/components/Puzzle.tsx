@@ -39,11 +39,13 @@ const PuzzleContent = ({ puzzle }: { puzzle: PuzzleType }) => {
 
 export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
   const [guess, setGuess] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | false>(false);
   const [guessCount, setGuessCount] = useState(0);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (guessCount >= 6) return;
+
     const newGuessCount = guessCount + 1;
     setGuessCount(newGuessCount);
 
@@ -51,8 +53,13 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
       setError(false);
       onSolve(false, newGuessCount);
     } else {
-      setError(true);
       setGuess("");
+      if (newGuessCount >= 6) {
+        setError("Better luck next time, but don't worry, all knowledge is free (as it should be :)");
+        setTimeout(() => onSolve(true, newGuessCount), 2000);
+      } else {
+        setError("Not quite. Try again!");
+      }
     }
   };
   
@@ -64,7 +71,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
     <div className="w-full max-w-md mx-auto flex flex-col items-center justify-center text-center p-4 animate-in fade-in duration-700">
       <PuzzleContent puzzle={puzzle} />
       <p className="mt-4 text-muted-foreground">
-        Solve the riddle to reveal today's concept.
+        Solve the riddle to reveal today's concept. You have {6 - guessCount} guesses remaining.
       </p>
       <form onSubmit={handleSubmit} className="w-full mt-8 space-y-4">
         <Input
@@ -76,6 +83,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
           }}
           placeholder="Your answer..."
           aria-label="Your answer for the riddle"
+          disabled={guessCount >= 6}
           className={`font-body text-center text-lg h-14 border-2 text-foreground bg-card/50 ${
             error
               ? "border-destructive ring-2 ring-destructive/50"
@@ -83,7 +91,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
           }`}
         />
         <div className="flex gap-4 w-full">
-          <Button type="submit" className="w-full h-12 text-lg">
+          <Button type="submit" className="w-full h-12 text-lg" disabled={guessCount >= 6}>
             Guess
           </Button>
           <Button
@@ -91,6 +99,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
             variant="secondary"
             onClick={handleSkip}
             className="w-full h-12 text-lg"
+            disabled={guessCount >= 6}
           >
             Skip
           </Button>
@@ -98,7 +107,7 @@ export function Puzzle({ puzzle, onSolve }: PuzzleProps) {
       </form>
       {error && (
         <p className="mt-2 text-destructive font-medium">
-          Not quite. Try again!
+          {error}
         </p>
       )}
     </div>
