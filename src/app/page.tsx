@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -23,33 +24,14 @@ export default function Home() {
 
   useEffect(() => {
     if (dailyConcept) {
-      if (!currentConcept) {
-        setCurrentConcept(dailyConcept);
-      }
-      
-      const seenConceptsStr = sessionStorage.getItem("conceptQuest-seen");
-      if (!seenConceptsStr) {
-        sessionStorage.setItem("conceptQuest-seen", JSON.stringify([dailyConcept.concept.title]));
-      }
+      setCurrentConcept(dailyConcept);
+      setIsSolved(false);
+      setSkipped(false);
+      setGuessCount(0);
+      setShowBreakdown(false);
+      setIsDaily(true);
     }
-  }, [dailyConcept, currentConcept]);
-  
-  useEffect(() => {
-    if (typeof window !== "undefined" && isDaily) {
-      const solvedStatus = localStorage.getItem("conceptQuest-solvedStatus");
-
-      if (solvedStatus) {
-        setIsSolved(true);
-        if (solvedStatus === "skipped") {
-          setSkipped(true);
-        }
-        const storedGuesses = localStorage.getItem("conceptQuest-guesses");
-        if (storedGuesses) {
-          setGuessCount(parseInt(storedGuesses, 10));
-        }
-      }
-    }
-  }, [isDaily]);
+  }, [dailyConcept]);
 
   const handleSolve = (wasSkipped: boolean, guesses: number) => {
     if (animationState === "idle") {
@@ -60,20 +42,16 @@ export default function Home() {
   };
   
   const handleLearnNew = () => {
-    let seenConcepts: string[] = JSON.parse(sessionStorage.getItem("conceptQuest-seen") || "[]");
-    
-    if (seenConcepts.length >= concepts.length) {
-      // All concepts seen, reset the list but keep the daily one
-      seenConcepts = [dailyConcept!.concept.title];
+    let newConcept: DailyConcept;
+    const seenTitles = [currentConcept?.concept.title, dailyConcept?.concept.title].filter(Boolean);
+
+    let availableConcepts = concepts.filter(c => !seenTitles.includes(c.concept.title));
+    if (availableConcepts.length === 0) {
+      availableConcepts = concepts.filter(c => c.concept.title !== currentConcept?.concept.title);
     }
     
-    let newConcept: DailyConcept;
-    do {
-      const randomIndex = Math.floor(Math.random() * concepts.length);
-      newConcept = concepts[randomIndex];
-    } while (seenConcepts.includes(newConcept.concept.title));
-
-    sessionStorage.setItem("conceptQuest-seen", JSON.stringify([...seenConcepts, newConcept.concept.title]));
+    const randomIndex = Math.floor(Math.random() * availableConcepts.length);
+    newConcept = availableConcepts[randomIndex];
 
     setCurrentConcept(newConcept);
     setIsSolved(false);
@@ -89,11 +67,9 @@ export default function Home() {
   
   const handleDailyConcept = () => {
     setCurrentConcept(dailyConcept);
-    const solvedStatus = localStorage.getItem("conceptQuest-solvedStatus");
-    setIsSolved(!!solvedStatus);
-    setSkipped(solvedStatus === "skipped");
-    const storedGuesses = localStorage.getItem("conceptQuest-guesses");
-    setGuessCount(storedGuesses ? parseInt(storedGuesses, 10) : 0);
+    setIsSolved(false);
+    setSkipped(false);
+    setGuessCount(0);
     setShowBreakdown(false);
     setIsDaily(true);
   };
@@ -105,10 +81,6 @@ export default function Home() {
   const handleAnimationEnd = () => {
     if (animationState === "in") {
       setIsSolved(true);
-      if (isDaily) {
-        localStorage.setItem("conceptQuest-solvedStatus", skipped ? "skipped" : "solved");
-        localStorage.setItem("conceptQuest-guesses", guessCount.toString());
-      }
       setAnimationState("out");
     } else if (animationState === "out") {
       setAnimationState("idle");

@@ -675,7 +675,7 @@ export const concepts: DailyConcept[] = [
     "category": "Biology",
     "puzzle": {
         "type": "word-scramble",
-        "clue": "SESIMOY",
+        "clue": "SSIMOSO",
         "answer": "Osmosis",
         "explanation": "The letters are a scramble of 'Osmosis,' the process of water movement across cell membranes."
     },
